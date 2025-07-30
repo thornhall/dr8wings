@@ -1,0 +1,33 @@
+body {
+    font-family: sans-serif;
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.card {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.card img {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.card span {
+    display: block;
+    margin-top: 0.5rem;
+}

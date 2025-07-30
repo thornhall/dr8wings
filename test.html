@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kai Studios</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        :root {
+            --bg: #151516;
+            --text: #f3f4f6;
+            --muted: #9ca3af;
+            --accent: #06b6d4;
+            /* cyan */
+            --card-bg: #1f2937;
+            --border: #374151;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 960px;
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--muted);
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card img {
+            width: 100%;
+            display: block;
+        }
+
+        .card span {
+            display: block;
+            padding: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        blockquote {
+            font-style: italic;
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent);
+            margin: 1rem 0;
+            padding: 1rem;
+            color: var(--muted);
+        }
+
+        cite {
+            display: block;
+            text-align: right;
+            margin-top: 0.5rem;
+            font-style: normal;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Roblox Game Manager</h1>
+        <p>I oversee full Roblox projects from start to finish.</p>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I'm a project manager for Roblox games, helping teams stay organised and projects reach completion. I manage
+            developers, set milestones, review quality, and help shape your game into a polished final product.</p>
+    </section>
+
+    <section id="what-i-do">
+        <h2>What I Do</h2>
+        <ul>
+            <li>Managing full teams (scripters, modelers, UI designers, etc.)</li>
+            <li>Setting deadlines and making sure they’re met</li>
+            <li>Testing and giving feedback to keep the project high-quality</li>
+            <li>Monetisation ideas, gameplay loops, daily retention ideas</li>
+            <li>Keeping everything organised so developers can just focus on building</li>
+        </ul>
+    </section>
+
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <div class="grid">
+            <a href="#" class="card">
+                <img src="assets/eatsand.png" alt="Eat Sand" />
+                <span>Eat Sand 2 - XX Visits</span>
+            </a>
+            <a href="#" class="card">
+                <img src="assets/gotham.png" alt="Gotham's Shadow" />
+                <span>Gotham's Shadow - XX Vists</span>
+            </a>
+            <a href="#" class="card">
+                <img src="assets/streetlife.png" alt="Project 1" />
+                <span>Street Life - XX Visits</span>
+            </a>
+            <a href="#" class="card">
+                <img src="assets/nomercy.png" alt="Project 1" />
+                <span>No Mercy - XX Visits</span>
+            </a>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <h2>Testimonials</h2>
+        <blockquote>
+            <p>"Kai brought structure and focus to our team — we couldn’t have finished without him."</p>
+            <cite>– Developer Name</cite>
+        </blockquote>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Get in touch at <a href="mailto:kaistudios@example.com">kaistudios@example.com</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Kai Studios</p>
+    </footer>
+</body>
+
+</html>

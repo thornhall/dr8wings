@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contributions | Dr8wings</title>
+    <style>
+        :root {
+            --bg: #121212;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --accent: #06b6d4;
+            --card-bg: #1e293b;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 4rem 2rem;
+        }
+
+        .contributions {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .contributions h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .game-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1rem;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .game-card img {
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .game-card p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin: 0.25rem 0;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--muted);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contributions">
+        <h1>Game Contributions</h1>
+        <div class="card-list">
+            <div class="game-card" data-universe-id="0001">
+                <img src="assets/eatsand.png" alt="Eat Sand 2 thumbnail" />
+                <h2>Eat Sand 2</h2>
+                <p>Total Visits: 400,000+</p>
+                <p>Currently Playing: 120</p>
+            </div>
+
+            <div class="game-card" data-universe-id="0002">
+                <img src="assets/gotham.png" alt="Gotham's Shadow thumbnail" />
+                <h2>Gotham's Shadow</h2>
+                <p>Total Visits: 300,000+</p>
+                <p>Currently Playing: 60</p>
+            </div>
+
+            <div class="game-card" data-universe-id="0003">
+                <img src="assets/streetlife.png" alt="Street Life thumbnail" />
+                <h2>Street Life</h2>
+                <p>Total Visits: 200,000+</p>
+                <p>Currently Playing: 35</p>
+            </div>
+
+            <div class="game-card" data-universe-id="0004">
+                <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
+                <h2>No Mercy</h2>
+                <p>Total Visits: 100,000+</p>
+                <p>Currently Playing: 18</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Dr8wings. All rights reserved.
+    </div>
+</body>
+
+</html>

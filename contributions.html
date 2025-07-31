@@ -88,32 +88,32 @@
     <div class="contributions">
         <h1>Game Contributions</h1>
         <div class="card-list">
-            <div class="game-card" data-universe-id="5184785556">
+            <div class="game-card" data-place-id="8457215898">
                 <img src="assets/eatsand.png" alt="Eat Sand 2 thumbnail" />
                 <h2>Eat Sand 2</h2>
-                <p>Total Visits: 400,000+</p>
-                <p>Currently Playing: 120</p>
+                <p>Total Visits: Loading...</p>
+                <p>Currently Playing: Loading...</p>
             </div>
 
-            <div class="game-card" data-universe-id="7092917312">
+            <div class="game-card" data-place-id="17470779408">
                 <img src="assets/gotham.png" alt="Gotham's Shadow thumbnail" />
                 <h2>Gotham's Shadow</h2>
-                <p>Total Visits: 300,000+</p>
-                <p>Currently Playing: 60</p>
+                <p>Total Visits: Loading...</p>
+                <p>Currently Playing: Loading...</p>
             </div>
 
-            <div class="game-card" data-universe-id="7328713397">
+            <div class="game-card" data-place-id="17306807164">
                 <img src="assets/streetlife.png" alt="Street Life thumbnail" />
                 <h2>Street Life</h2>
-                <p>Total Visits: 200,000+</p>
-                <p>Currently Playing: 35</p>
+                <p>Total Visits: Loading...</p>
+                <p>Currently Playing: Loading...</p>
             </div>
 
-            <div class="game-card" data-universe-id="7234659286">
+            <div class="game-card" data-place-id="71600459831333">
                 <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
                 <h2>No Mercy</h2>
-                <p>Total Visits: 100,000+</p>
-                <p>Currently Playing: 18</p>
+                <p>Total Visits: Loading...</p>
+                <p>Currently Playing: Loading...</p>
             </div>
         </div>
     </div>
@@ -121,42 +121,52 @@
     <div class="footer">
         &copy; 2025 Dr8wings. All rights reserved.
     </div>
+
     <script>
         function updateGameStats() {
             const cards = document.querySelectorAll('.game-card');
-            const ids = Array.from(cards)
-                .map(card => card.dataset.universeId)
+            const placeIds = Array.from(cards)
+                .map(card => card.dataset.placeId)
                 .filter(Boolean);
+            if (!placeIds.length) return;
 
-            if (ids.length === 0) return;
-
-            fetch(`https://games.roproxy.com/v1/games?universeIds=${ids.join(',')}`)
-                .then(response => response.json())
-                .then(data => {
-                    data.data.forEach(game => {
-                        const card = document.querySelector(`.game-card[data-universe-id="${game.universeId}"]`);
-                        if (!card) return;
-
-                        const pTags = card.querySelectorAll('p');
-                        if (pTags.length >= 2) {
-                            pTags[0].textContent = `Total Visits: ${game.visits.toLocaleString()}`;
-                            pTags[1].textContent = `Currently Playing: ${game.playing.toLocaleString()}`;
-                        }
+            // First, get universe IDs for each place
+            fetch(`https://games.roproxy.com/v1/games/multiget-place-details?placeIds=${placeIds.join(',')}`)
+                .then(res => res.json())
+                .then(placeData => {
+                    const universeMap = {};
+                    placeData.forEach(item => {
+                        universeMap[item.placeId] = item.universeId;
                     });
+                    const universeIds = Object.values(universeMap);
+
+                    // Then, fetch game stats by universe IDs
+                    return fetch(`https://games.roproxy.com/v1/games?universeIds=${universeIds.join(',')}`)
+                        .then(res => res.json())
+                        .then(gameData => {
+                            gameData.data.forEach(game => {
+                                const placeId = Object.keys(universeMap).find(key => universeMap[key] === game.universeId);
+                                const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
+                                if (!card) return;
+
+                                const pTags = card.querySelectorAll('p');
+                                if (pTags.length >= 2) {
+                                    pTags[0].textContent = `Total Visits: ${game.visits.toLocaleString()}`;
+                                    pTags[1].textContent = `Currently Playing: ${game.playing.toLocaleString()}`;
+                                }
+                            });
+                        });
                 })
-                .catch(error => {
-                    console.error('Failed to fetch game data:', error);
-                });
+                .catch(error => console.error('Failed to fetch game data:', error));
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 updateGameStats();
                 setInterval(updateGameStats, 60000); // every 60 seconds
-            }); // wait 5 seconds before first fetch
+            }, 5000); // wait 5 seconds before first fetch
         });
     </script>
-
 </body>
 
 </html>

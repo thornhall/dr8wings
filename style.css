@@ -434,7 +434,6 @@ h1 {
 @media (max-width: 768px) {
     .main-content-bg {
         background-size: contain;
-        /* scale to fit without zoom */
         background-position: top center;
         background-repeat: no-repeat;
         min-height: 40vh;

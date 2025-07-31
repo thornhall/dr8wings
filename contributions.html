@@ -128,25 +128,29 @@
             const placeIds = Array.from(cards).map(c => c.dataset.placeId).filter(Boolean);
             if (!placeIds.length) return;
 
+            const universeMap = {};
+            await Promise.all(placeIds.map(async placeId => {
+                try {
+                    const res = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+                    const data = await res.json();
+                    // data may be { universeId: 123 } or { data: { universeId: 123 } }
+                    const uid = data.universeId ?? data.UniverseId ?? data.data?.universeId;
+                    universeMap[placeId] = uid;
+                } catch (e) {
+                    console.error('Error fetching universe ID for place', placeId, e);
+                }
+            }));
+
+            const universeIds = Object.values(universeMap).filter(Boolean);
+            if (!universeIds.length) return;
+
             try {
-                // Fetch place details to get universe IDs via roproxy (CORS-enabled)
-                const placeRes = await fetch(`https://games.roproxy.com/v1/games/multiget-place-details?placeIds=${placeIds.join(',')}`);
-                const placeJson = await placeRes.json();
-                const details = placeJson.data || placeJson;
-                const universeMap = {};
-                details.forEach(detail => {
-                    universeMap[detail.placeId] = detail.universeId;
-                });
-
-                const universeIds = Object.values(universeMap);
-                if (!universeIds.length) return;
-
-                // Fetch game stats
                 const statsRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeIds.join(',')}`);
                 const statsJson = await statsRes.json();
                 const stats = statsJson.data || statsJson;
 
                 stats.forEach(game => {
+                    // game.id is the universe ID
                     const placeId = Object.keys(universeMap).find(pid => universeMap[pid] === game.id);
                     const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
                     if (!card) return;
@@ -154,8 +158,8 @@
                     visitsP.textContent = `Total Visits: ${game.visits.toLocaleString()}`;
                     playingP.textContent = `Currently Playing: ${game.playing.toLocaleString()}`;
                 });
-            } catch (err) {
-                console.error('Error updating game stats:', err);
+            } catch (e) {
+                console.error('Error fetching game stats', e);
             }
         }
 

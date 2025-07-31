@@ -41,6 +41,46 @@
                 </div>
             </div>
 
+            <div class="game-card" data-place-id="115142309251146">
+                <div class="thumbnail-wrapper">
+                    <a href="https://www.roblox.com/games/115142309251146/Grow-A-Ranch" target="_blank"
+                        rel="noopener noreferrer">
+                        <img src="assets/growaranch_icon.webp" alt="grow a ranch thumbnail" />
+                    </a>
+                </div>
+                <h2>Gotham's Shadow</h2>
+                <div class="game-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Total Visits</span>
+                        <span class="stat-value"><span class="value">--</span><span class="spinner"></span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Playing</span>
+                        <span class="stat-value"><span class="value">--</span><span class="spinner"></span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-card" data-place-id="17897363783">
+                <div class="thumbnail-wrapper">
+                    <a href="https://www.roblox.com/games/17897363783/Build-Your-Own-Tycoon-UPDATE" target="_blank"
+                        rel="noopener noreferrer">
+                        <img src="assets/buildtycoon.webp" alt="Build Your own tycoon thumbnail" />
+                    </a>
+                </div>
+                <h2>Gotham's Shadow</h2>
+                <div class="game-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Total Visits</span>
+                        <span class="stat-value"><span class="value">--</span><span class="spinner"></span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Playing</span>
+                        <span class="stat-value"><span class="value">--</span><span class="spinner"></span></span>
+                    </div>
+                </div>
+            </div>
+
             <div class="game-card" data-place-id="8457215898">
                 <div class="thumbnail-wrapper">
                     <a href="https://www.roblox.com/games/8457215898/Content-Deleted" target="_blank"
@@ -220,8 +260,8 @@
                     const aPlay = parseInt(a.dataset.playing || '1', 10);
                     const bPlay = parseInt(b.dataset.playing || '1', 10);
                     if (bPlay !== aPlay) return bPlay - aPlay;
-                    const aVisit = parseInt(a.dataset.visits || '0', 10);
-                    const bVisit = parseInt(b.dataset.visits || '0', 10);
+                    const aVisit = parseInt(a.dataset.visits || '1', 10);
+                    const bVisit = parseInt(b.dataset.visits || '1', 10);
                     return bVisit - aVisit;
                 });
 

@@ -368,3 +368,45 @@ h1 {
     color: var(--text);
     text-align: center;
 }
+
+.testimonials-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.testimonials-container h1 {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 3rem;
+}
+
+.testimonial {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+    text-align: left;
+}
+
+.testimonial .quote {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+}
+
+.testimonial .name {
+    font-size: 1rem;
+    color: var(--muted);
+    text-align: right;
+}
+
+.rating {
+    font-size: 1.2rem;
+    color: gold;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}

@@ -16,7 +16,6 @@
     <div class="contributions">
         <h1>Game Contributions</h1>
 
-        <!-- Spinner shown until sorted data loads -->
         <div class="grid-spinner" id="grid-spinner">
             <div class="spinner-large"></div>
         </div>
@@ -44,109 +43,98 @@
     </div>
 
     <script>
-        function generateGameCardContent(card) {
-            const placeId = card.dataset.placeId;
-            const image = card.dataset.image;
-            const name = card.dataset.name;
-
-            card.innerHTML = `
-        <div class="thumbnail-wrapper">
-          <a href="https://www.roblox.com/games/${placeId}" target="_blank" rel="noopener noreferrer">
-            <img src="${image}" alt="${name} thumbnail" />
-          </a>
-        </div>
-        <h2>${name}</h2>
-        <div class="game-stats">
-          <div class="stat-row">
-            <span class="stat-label">Total Visits</span>
-            <span class="stat-value"><span class="value">--</span><span class="spinner"></span></span>
-          </div>
-          <div class="stat-row">
-            <span class="stat-label">Currently Playing</span>
-            <span class="stat-value"><span class="value">--</span><span class="spinner"></span></span>
-          </div>
-        </div>
-      `;
-        }
-
         async function updateGameStats() {
             const container = document.querySelector('.grid-container');
             const spinner = document.getElementById('grid-spinner');
             const cards = Array.from(container.querySelectorAll('.game-card'));
 
-            cards.forEach(generateGameCardContent);
+            const universeMap = {}; // placeId => universeId
+            const universeData = {}; // universeId => { playing, visits }
 
-            const placeIds = cards.map(c => c.dataset.placeId).filter(Boolean);
-            if (!placeIds.length) return;
-
-            const universeMap = {};
-            await Promise.all(placeIds.map(async placeId => {
+            // Step 1: Get universeId for each place
+            await Promise.all(cards.map(async card => {
+                const placeId = card.dataset.placeId;
                 try {
                     const res = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
                     const data = await res.json();
-                    const uid = data.universeId ?? data.UniverseId ?? data.data?.universeId;
-                    universeMap[placeId] = uid;
-                } catch (e) {
-                    console.error('Error fetching universe ID for place', placeId, e);
+                    const universeId = data.universeId ?? data.data?.universeId;
+                    if (universeId) {
+                        universeMap[placeId] = universeId;
+                    }
+                } catch (err) {
+                    console.error('Error resolving universe for', placeId, err);
                 }
             }));
 
-            const universeIds = Object.values(universeMap).filter(Boolean);
+            const universeIds = Object.values(universeMap);
             if (!universeIds.length) return;
 
+            // Step 2: Get game stats for each universe
             try {
                 const statsRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeIds.join(',')}`);
                 const statsJson = await statsRes.json();
                 const stats = statsJson.data || statsJson;
 
                 stats.forEach(game => {
-                    const placeId = Object.keys(universeMap).find(pid => universeMap[pid] === game.id);
-                    const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
-                    if (!card) return;
-
-                    const [visitsP, playingP] = card.querySelectorAll('.stat-row');
-                    const visitsNum = typeof game.visits === 'number' ? game.visits : 0;
-                    const playingNum = typeof game.playing === 'number' ? game.playing : 0;
-
-                    const visitsStr = visitsNum === 0 ? '--' : visitsNum.toLocaleString();
-                    const playingStr = playingNum === 0 ? '--' : playingNum.toLocaleString();
-
-                    const visitsValue = visitsP.querySelector('.value');
-                    const playingValue = playingP.querySelector('.value');
-                    if (visitsValue) {
-                        visitsValue.textContent = visitsStr;
-                        const spinnerV = visitsP.querySelector('.spinner'); if (spinnerV) spinnerV.remove();
-                    }
-                    if (playingValue) {
-                        playingValue.textContent = playingStr;
-                        const spinnerP = playingP.querySelector('.spinner'); if (spinnerP) spinnerP.remove();
-                    }
-
-                    card.dataset.playing = playingNum.toString();
-                    card.dataset.visits = visitsNum.toString();
+                    universeData[game.id] = {
+                        playing: game.playing || 0,
+                        visits: game.visits || 0
+                    };
                 });
-
-                const sortedCards = cards.sort((a, b) => {
-                    const aPlay = parseInt(a.dataset.playing || '0', 10);
-                    const bPlay = parseInt(b.dataset.playing || '0', 10);
-                    if (bPlay !== aPlay) return bPlay - aPlay;
-
-                    const aVisit = parseInt(a.dataset.visits || '0', 10);
-                    const bVisit = parseInt(b.dataset.visits || '0', 10);
-                    return bVisit - aVisit;
-                });
-
-                container.innerHTML = '';
-                sortedCards.forEach(card => {
-                    generateGameCardContent(card); // regenerate innerHTML after sort
-                    container.appendChild(card);
-                });
-
-                spinner.remove();
-                container.style.display = 'grid';
             } catch (e) {
                 console.error('Error fetching game stats', e);
+                return;
             }
+
+            // Step 3: Populate and sort cards
+            cards.forEach(card => {
+                const placeId = card.dataset.placeId;
+                const universeId = universeMap[placeId];
+                const image = card.dataset.image;
+                const name = card.dataset.name;
+                const stats = universeData[universeId] || { playing: 0, visits: 0 };
+
+                card.dataset.playing = stats.playing;
+                card.dataset.visits = stats.visits;
+
+                card.innerHTML = `
+          <div class="thumbnail-wrapper">
+            <a href="https://www.roblox.com/games/${universeId}" target="_blank" rel="noopener noreferrer">
+              <img src="${image}" alt="${name} thumbnail" />
+            </a>
+          </div>
+          <h2>${name}</h2>
+          <div class="game-stats">
+            <div class="stat-row">
+              <span class="stat-label">Total Visits</span>
+              <span class="stat-value"><span class="value">${stats.visits.toLocaleString()}</span></span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Currently Playing</span>
+              <span class="stat-value"><span class="value">${stats.playing.toLocaleString()}</span></span>
+            </div>
+          </div>
+        `;
+            });
+
+            // Step 4: Sort cards
+            const sortedCards = cards.sort((a, b) => {
+                const aPlay = parseInt(a.dataset.playing || '0', 10);
+                const bPlay = parseInt(b.dataset.playing || '0', 10);
+                if (aPlay !== bPlay) return bPlay - aPlay;
+
+                const aVisits = parseInt(a.dataset.visits || '0', 10);
+                const bVisits = parseInt(b.dataset.visits || '0', 10);
+                return bVisits - aVisits;
+            });
+
+            // Step 5: Re-render in order
+            container.innerHTML = '';
+            sortedCards.forEach(card => container.appendChild(card));
+
+            // Show grid, hide spinner
+            spinner.remove();
+            container.style.display = 'grid';
         }
 
         document.addEventListener('DOMContentLoaded', () => {

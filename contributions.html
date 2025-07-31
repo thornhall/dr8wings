@@ -18,7 +18,7 @@
         <div class="grid-container">
             <div class="game-card" data-place-id="8457215898">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/eatsand.png" alt="Eat Sand 2 thumbnail" />
+                    <img src="assets/eatsand_icon.webp" alt="Eat Sand 2 thumbnail" />
                 </div>
                 <h2>Eat Sand 2</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
@@ -36,7 +36,7 @@
 
             <div class="game-card" data-place-id="17306807164">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/streetlife.png" alt="Street Life thumbnail" />
+                    <img src="assets/streetlife_icon.webp" alt="Street Life thumbnail" />
                 </div>
                 <h2>Street Life</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
@@ -45,9 +45,34 @@
 
             <div class="game-card" data-place-id="71600459831333">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
+                    <img src="assets/nomercy_icon.webp" alt="No Mercy thumbnail" />
                 </div>
                 <h2>No Mercy</h2>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
+            </div>
+
+            <div class="game-card" data-place-id="118625690213489">
+                <div class="thumbnail-wrapper">
+                    <img src="assets/obbygn_icon.webp" alt="Obby but youre a gun thumbnail" />
+                </div>
+                <h2>Obby But You're A Gun!</h2>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
+            </div>
+            <div class="game-card" data-place-id="13922368394">
+                <div class="thumbnail-wrapper">
+                    <img src="assets/ReactorFacility_icon.webp" alt="No Mercy thumbnail" />
+                </div>
+                <h2>Reactor Facility Tycoon</h2>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
+            </div>
+            <div class="game-card" data-place-id="107199013372291">
+                <div class="thumbnail-wrapper">
+                    <img src="assets/JackAndJill_icon.webp" alt="No Mercy thumbnail" />
+                </div>
+                <h2>Jack & Jill Tower</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
                 <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
@@ -60,8 +85,9 @@
 
     <script>
         async function updateGameStats() {
-            const cards = document.querySelectorAll('.game-card');
-            const placeIds = Array.from(cards).map(c => c.dataset.placeId).filter(Boolean);
+            const container = document.querySelector('.grid-container');
+            const cards = Array.from(container.querySelectorAll('.game-card'));
+            const placeIds = cards.map(c => c.dataset.placeId).filter(Boolean);
             if (!placeIds.length) return;
 
             const universeMap = {};
@@ -84,35 +110,51 @@
                 const statsJson = await statsRes.json();
                 const stats = statsJson.data || statsJson;
 
+                const playingMap = {}; // Map universeId to currentlyPlaying
                 stats.forEach(game => {
                     const placeId = Object.keys(universeMap).find(pid => universeMap[pid] === game.id);
                     const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
                     if (!card) return;
+
                     const [visitsP, playingP] = card.querySelectorAll('p');
                     const visitsStr = game.visits === 0 ? '--' : game.visits.toLocaleString();
                     const playingStr = game.playing === 0 ? '--' : game.playing.toLocaleString();
+
+                    // Set values and cleanup spinners
                     const visitsValue = visitsP.querySelector('.value');
                     const playingValue = playingP.querySelector('.value');
                     if (visitsValue) {
                         visitsValue.textContent = visitsStr;
                         const spinnerV = visitsP.querySelector('.spinner'); if (spinnerV) spinnerV.remove();
-                    } else {
-                        visitsP.textContent = `Total Visits: ${visitsStr}`;
                     }
                     if (playingValue) {
                         playingValue.textContent = playingStr;
                         const spinnerP = playingP.querySelector('.spinner'); if (spinnerP) spinnerP.remove();
-                    } else {
-                        playingP.textContent = `Currently Playing: ${playingStr}`;
                     }
+
+                    // Save currently playing for sort later
+                    const playingCount = typeof game.playing === 'number' ? game.playing : 0;
+                    card.dataset.playing = playingCount.toString();
+                    playingMap[placeId] = playingCount;
                 });
+
+                // Sort cards by currently playing (descending)
+                const sortedCards = cards.sort((a, b) => {
+                    const aPlay = parseInt(a.dataset.playing || '0', 10);
+                    const bPlay = parseInt(b.dataset.playing || '0', 10);
+                    return bPlay - aPlay;
+                });
+
+                // Re-append cards to container in new order
+                container.innerHTML = '';
+                sortedCards.forEach(card => container.appendChild(card));
             } catch (e) {
                 console.error('Error fetching game stats', e);
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(updateGameStats, 3000);
+            setTimeout(updateGameStats);
             setInterval(updateGameStats, 60000);
         });
     </script>

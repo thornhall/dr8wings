@@ -411,23 +411,30 @@ h1 {
     letter-spacing: 0.05em;
 }
 
-.hero-bg {
+.main-content-bg {
     background-image: url('assets/ThumbnailNoLines.png');
     background-size: cover;
     background-position: center;
-    height: 60vh;
-    width: 100%;
-    margin-top: -1px;
+    background-repeat: no-repeat;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    min-height: 60vh;
+    position: relative;
     z-index: 0;
 }
 
-.hero-bg::after {
+.main-content-bg::before {
     content: '';
-    display: block;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.2);
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.main-content-bg>* {
+    position: relative;
+    z-index: 2;
 }

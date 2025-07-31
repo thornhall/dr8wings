@@ -442,13 +442,11 @@ h1 {
 
 @media (max-width: 768px) {
     .main-content-bg {
-        background-position: top center;
         background-size: contain;
+        /* scale to fit without zoom */
+        background-position: top center;
+        background-repeat: no-repeat;
         min-height: 40vh;
         padding: 2rem 0;
-    }
-
-    .content-inner {
-        padding: 2rem 1rem;
     }
 }

@@ -18,8 +18,8 @@ body {
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.6;
+    overflow-x: hidden;
     margin: 0;
-    padding: 4rem 2rem;
 }
 
 /* Spinner */
@@ -208,7 +208,6 @@ h1 {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    ;
     gap: 2rem;
 }
 
@@ -333,11 +332,8 @@ h1 {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 3rem;
     justify-content: center;
-    /* center items inside the grid */
     margin: 0 auto;
-    /* center the whole container */
     max-width: 1000px;
-    /* limit the full width of the grid */
     padding: 2rem 1rem;
 }
 
@@ -412,11 +408,11 @@ h1 {
 }
 
 .main-content-bg {
-    background-image: url('assets/your-background.jpg');
+    background-image: url('assets/ThumbnailNoLines.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100vw;
+    width: 100%;
     min-height: 60vh;
     position: relative;
     display: flex;
@@ -440,5 +436,6 @@ h1 {
     z-index: 2;
     max-width: 960px;
     width: 100%;
-    padding: 0 1rem;
+    padding: 4rem 2rem;
+    margin: 0 auto;
 }

@@ -217,8 +217,8 @@
 
                 // Sort cards
                 const sortedCards = cards.sort((a, b) => {
-                    const aPlay = parseInt(a.dataset.playing || '0', 10);
-                    const bPlay = parseInt(b.dataset.playing || '0', 10);
+                    const aPlay = parseInt(a.dataset.playing || '1', 10);
+                    const bPlay = parseInt(b.dataset.playing || '1', 10);
                     if (bPlay !== aPlay) return bPlay - aPlay;
                     const aVisit = parseInt(a.dataset.visits || '0', 10);
                     const bVisit = parseInt(b.dataset.visits || '0', 10);

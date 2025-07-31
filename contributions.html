@@ -24,126 +24,229 @@
             }
         }
 
-        :root {
-            --bg: #121212;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
-            --accent: #06b6d4;
+        .burger {
+            display: none;
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        .burger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            margin: 5px 0;
+            transition: transform .3s, opacity .3s;
         }
 
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: var(--bg);
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .mobile-menu a {
             color: var(--text);
-            line-height: 1.6;
-            margin: 0;
-            padding: 4rem 2rem;
-        }
-
-        nav {
-            max-width: 960px;
-            margin: 0 auto 2rem;
-            padding: 0 1rem;
-            text-align: left;
-        }
-
-        nav a {
-            color: var(--accent);
             text-decoration: none;
-            font-size: 1rem;
             font-weight: 500;
         }
 
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .contributions {
+        .nav-inner {
             max-width: 960px;
             margin: 0 auto;
             padding: 0 1rem;
-        }
-
-        .contributions h1 {
-            font-size: 2.5rem;
-            color: var(--accent);
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .card-list {
             display: flex;
-            flex-direction: column;
-            gap: 3rem;
-        }
-
-        .game-card {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
+            justify-content: space-between;
         }
 
-        .game-card img {
-            width: 100%;
-            height: auto;
-            max-width: 500px;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease;
+        .links {
+            display: flex;
+            gap: 1rem;
         }
 
-        .game-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .game-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+        .links a {
             color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 6px 8px;
+            border-radius: 4px;
         }
 
-        .game-card p {
-            color: var(--muted);
-            font-size: 1rem;
-            margin: 0.25rem 0;
+        .links a:hover {
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .footer {
-            text-align: center;
-            font-size: 0.875rem;
-            color: var(--muted);
-            padding: 2rem 0;
-            margin-top: 4rem;
+        @media (max-width: 900px) {
+            .links {
+                display: none;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: none;
+            }
+
+            .mobile-menu.open {
+                display: flex;
+            }
         }
+
+        :root {
+            .spinner {
+                display: inline-block;
+                width: 14px;
+                height: 14px;
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                border-top-color: var(--accent);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                vertical-align: middle;
+                margin-left: 6px;
+            }
+
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            :root {
+                --bg: #121212;
+                --text: #f1f5f9;
+                --muted: #94a3b8;
+                --accent: #06b6d4;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: 'Inter', system-ui, sans-serif;
+                background-color: var(--bg);
+                color: var(--text);
+                line-height: 1.6;
+                margin: 0;
+                padding: 4rem 2rem;
+            }
+
+            nav {
+                max-width: 960px;
+                margin: 0 auto 2rem;
+                padding: 0 1rem;
+                text-align: left;
+            }
+
+            nav a {
+                color: var(--accent);
+                text-decoration: none;
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            nav a:hover {
+                text-decoration: underline;
+            }
+
+            .contributions {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 0 1rem;
+            }
+
+            .contributions h1 {
+                font-size: 2.5rem;
+                color: var(--accent);
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            .card-list {
+                display: flex;
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .game-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .game-card img {
+                width: 100%;
+                height: auto;
+                max-width: 500px;
+                border-radius: 1rem;
+                margin-bottom: 1rem;
+                transition: transform 0.3s ease;
+            }
+
+            .game-card:hover img {
+                transform: scale(1.05);
+            }
+
+            .game-card h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+                color: var(--text);
+            }
+
+            .game-card p {
+                color: var(--muted);
+                font-size: 1rem;
+                margin: 0.25rem 0;
+            }
+
+            .footer {
+                text-align: center;
+                font-size: 0.875rem;
+                color: var(--muted);
+                padding: 2rem 0;
+                margin-top: 4rem;
+            }
     </style>
 </head>
 
 <body>
     <nav>
-        <a href="index.html">&larr; Home</a>
+        <div class="nav-inner">
+            <div class="logo"><a href="index.html" aria-label="Home">Dr8wings</a></div>
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#top-brands">Top Brands</a>
+                <a href="contributions.html">Contributions</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact Me</a>
+            </div>
+            <button class="burger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-menu">
+            <a href="index.html">Home</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#top-brands">Top Brands</a>
+            <a href="contributions.html">Contributions</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact Me</a>
+        </div>
     </nav>
     <div class="contributions">
         <h1>Game Contributions</h1>
         <div class="card-list">
-            <div class="game-card" data-place-id="71600459831333">
-                <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
-                <h2>No Mercy</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-            <div class="game-card" data-place-id="17306807164">
-                <img src="assets/streetlife.png" alt="Street Life thumbnail" />
-                <h2>Street Life</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
             <div class="game-card" data-place-id="8457215898">
                 <img src="assets/eatsand.png" alt="Eat Sand 2 thumbnail" />
                 <h2>Eat Sand 2</h2>
@@ -154,6 +257,20 @@
             <div class="game-card" data-place-id="17470779408">
                 <img src="assets/gotham.png" alt="Gotham's Shadow thumbnail" />
                 <h2>Gotham's Shadow</h2>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
+            </div>
+
+            <div class="game-card" data-place-id="17306807164">
+                <img src="assets/streetlife.png" alt="Street Life thumbnail" />
+                <h2>Street Life</h2>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
+            </div>
+
+            <div class="game-card" data-place-id="71600459831333">
+                <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
+                <h2>No Mercy</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
                 <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
@@ -220,6 +337,72 @@
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(updateGameStats, 3000);
             setInterval(updateGameStats, 60000);
+        });
+    </script>
+    <script>
+        async function updateGameStats() {
+            const cards = document.querySelectorAll('.game-card');
+            const placeIds = Array.from(cards).map(c => c.dataset.placeId).filter(Boolean);
+            if (!placeIds.length) return;
+
+            const universeMap = {};
+            await Promise.all(placeIds.map(async placeId => {
+                try {
+                    const res = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+                    const data = await res.json();
+                    const uid = data.universeId ?? data.UniverseId ?? data.data?.universeId;
+                    universeMap[placeId] = uid;
+                } catch (e) {
+                    console.error('Error fetching universe ID for place', placeId, e);
+                }
+            }));
+
+            const universeIds = Object.values(universeMap).filter(Boolean);
+            if (!universeIds.length) return;
+
+            try {
+                const statsRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeIds.join(',')}`);
+                const statsJson = await statsRes.json();
+                const stats = statsJson.data || statsJson;
+
+                stats.forEach(game => {
+                    const placeId = Object.keys(universeMap).find(pid => universeMap[pid] === game.id);
+                    const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
+                    if (!card) return;
+                    const [visitsP, playingP] = card.querySelectorAll('p');
+                    const visitsStr = game.visits === 0 ? '--' : game.visits.toLocaleString();
+                    const playingStr = game.playing === 0 ? '--' : game.playing.toLocaleString();
+                    const visitsValue = visitsP.querySelector('.value');
+                    const playingValue = playingP.querySelector('.value');
+                    if (visitsValue) {
+                        visitsValue.textContent = visitsStr;
+                        const spinnerV = visitsP.querySelector('.spinner'); if (spinnerV) spinnerV.remove();
+                    } else {
+                        visitsP.textContent = `Total Visits: ${visitsStr}`;
+                    }
+                    if (playingValue) {
+                        playingValue.textContent = playingStr;
+                        const spinnerP = playingP.querySelector('.spinner'); if (spinnerP) spinnerP.remove();
+                    } else {
+                        playingP.textContent = `Currently Playing: ${playingStr}`;
+                    }
+                });
+            } catch (e) {
+                console.error('Error fetching game stats', e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(updateGameStats, 3000);
+            setInterval(updateGameStats, 60000);
+
+            const burger = document.querySelector('.burger');
+            const mobile = document.querySelector('.mobile-menu');
+            burger.addEventListener('click', () => {
+                const expanded = burger.getAttribute('aria-expanded') === 'true';
+                burger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+                mobile.classList.toggle('open');
+            });
         });
     </script>
 </body>

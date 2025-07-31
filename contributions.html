@@ -5,245 +5,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contributions | Dr8wings</title>
-    <style>
-        .spinner {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            vertical-align: middle;
-            margin-left: 6px;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .burger {
-            display: none;
-            background: none;
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-        }
-
-        .burger span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--text);
-            margin: 5px 0;
-            transition: transform .3s, opacity .3s;
-        }
-
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .mobile-menu a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .nav-inner {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .links a {
-            color: var(--text);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            padding: 6px 8px;
-            border-radius: 4px;
-        }
-
-        .links a:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        @media (max-width: 900px) {
-            .links {
-                display: none;
-            }
-
-            .burger {
-                display: block;
-            }
-
-            .mobile-menu {
-                display: none;
-            }
-
-            .mobile-menu.open {
-                display: flex;
-            }
-        }
-
-        :root {
-            .spinner {
-                display: inline-block;
-                width: 14px;
-                height: 14px;
-                border: 2px solid rgba(255, 255, 255, 0.2);
-                border-top-color: var(--accent);
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
-                vertical-align: middle;
-                margin-left: 6px;
-            }
-
-            @keyframes spin {
-                to {
-                    transform: rotate(360deg);
-                }
-            }
-
-            :root {
-                --bg: #121212;
-                --text: #f1f5f9;
-                --muted: #94a3b8;
-                --accent: #06b6d4;
-            }
-
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                font-family: 'Inter', system-ui, sans-serif;
-                background-color: var(--bg);
-                color: var(--text);
-                line-height: 1.6;
-                margin: 0;
-                padding: 4rem 2rem;
-            }
-
-            nav {
-                max-width: 960px;
-                margin: 0 auto 2rem;
-                padding: 0 1rem;
-                text-align: left;
-            }
-
-            nav a {
-                color: var(--accent);
-                text-decoration: none;
-                font-size: 1rem;
-                font-weight: 500;
-            }
-
-            nav a:hover {
-                text-decoration: underline;
-            }
-
-            .contributions {
-                max-width: 960px;
-                margin: 0 auto;
-                padding: 0 1rem;
-            }
-
-            .contributions h1 {
-                font-size: 2.5rem;
-                color: var(--accent);
-                text-align: center;
-                margin-bottom: 3rem;
-            }
-
-            .card-list {
-                display: flex;
-                flex-direction: column;
-                gap: 3rem;
-            }
-
-            .game-card {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .game-card img {
-                width: 100%;
-                height: auto;
-                max-width: 500px;
-                border-radius: 1rem;
-                margin-bottom: 1rem;
-                transition: transform 0.3s ease;
-            }
-
-            .game-card:hover img {
-                transform: scale(1.05);
-            }
-
-            .game-card h2 {
-                font-size: 1.5rem;
-                margin-bottom: 0.5rem;
-                color: var(--text);
-            }
-
-            .game-card p {
-                color: var(--muted);
-                font-size: 1rem;
-                margin: 0.25rem 0;
-            }
-
-            .footer {
-                text-align: center;
-                font-size: 0.875rem;
-                color: var(--muted);
-                padding: 2rem 0;
-                margin-top: 4rem;
-            }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <nav>
-        <div class="nav-inner">
-            <div class="logo"><a href="index.html" aria-label="Home">Dr8wings</a></div>
-            <div class="links">
-                <a href="index.html">Home</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#top-brands">Top Brands</a>
-                <a href="contributions.html">Contributions</a>
-                <a href="#services">Services</a>
-                <a href="#contact">Contact Me</a>
-            </div>
-            <button class="burger" aria-label="Menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-        <div class="mobile-menu">
-            <a href="index.html">Home</a>
-            <a href="#testimonials">Testimonials</a>
-            <a href="#top-brands">Top Brands</a>
-            <a href="contributions.html">Contributions</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact Me</a>
-        </div>
-    </nav>
+    <div id="shared-nav"></div>
+    <script>
+        async function injectNav() {
+            const resp = await fetch('nav.html');
+            if (!resp.ok) return;
+            const html = await resp.text();
+            document.getElementById('shared-nav').innerHTML = html;
+
+            // Re-run burger toggle wiring since nav was injected
+            const burger = document.querySelector('.burger');
+            const mobile = document.querySelector('.mobile-menu');
+            if (burger && mobile) {
+                burger.addEventListener('click', () => {
+                    const expanded = burger.getAttribute('aria-expanded') === 'true';
+                    burger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+                    mobile.classList.toggle('open');
+                });
+            }
+        }
+        injectNav();
+    </script>
+
     <div class="contributions">
         <h1>Game Contributions</h1>
         <div class="card-list">

@@ -130,7 +130,7 @@
 
             if (ids.length === 0) return;
 
-            fetch(`https://games.roblox.com/v1/games?universeIds=${ids.join(',')}`)
+            fetch(`https://games.roproxy.com/v1/games?universeIds=${ids.join(',')}`)
                 .then(response => response.json())
                 .then(data => {
                     data.data.forEach(game => {

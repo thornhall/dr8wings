@@ -454,6 +454,7 @@ h1 {
 .hero-container {
     position: relative;
     width: 100%;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
 }
 
@@ -467,6 +468,14 @@ h1 {
     z-index: 0;
     pointer-events: none;
     user-select: none;
+}
+
+/* Optional: fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 16 / 9) {
+    .hero-container {
+        height: 56.25vw;
+        /* 9/16 * 100 = 56.25% */
+    }
 }
 
 .content-inner {

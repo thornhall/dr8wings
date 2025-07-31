@@ -11,32 +11,41 @@
 <body>
     <div id="shared-nav"></div>
     <script src="injectNav.js" defer></script>
+
     <div class="contributions">
         <h1>Game Contributions</h1>
-        <div class="card-list">
+        <div class="grid-container">
             <div class="game-card" data-place-id="8457215898">
-                <img src="assets/eatsand.png" alt="Eat Sand 2 thumbnail" />
+                <div class="thumbnail-wrapper">
+                    <img src="assets/eatsand.png" alt="Eat Sand 2 thumbnail" />
+                </div>
                 <h2>Eat Sand 2</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
                 <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
 
             <div class="game-card" data-place-id="17470779408">
-                <img src="assets/gotham.png" alt="Gotham's Shadow thumbnail" />
+                <div class="thumbnail-wrapper">
+                    <img src="assets/gotham.png" alt="Gotham's Shadow thumbnail" />
+                </div>
                 <h2>Gotham's Shadow</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
                 <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
 
             <div class="game-card" data-place-id="17306807164">
-                <img src="assets/streetlife.png" alt="Street Life thumbnail" />
+                <div class="thumbnail-wrapper">
+                    <img src="assets/streetlife.png" alt="Street Life thumbnail" />
+                </div>
                 <h2>Street Life</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
                 <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
 
             <div class="game-card" data-place-id="71600459831333">
-                <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
+                <div class="thumbnail-wrapper">
+                    <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
+                </div>
                 <h2>No Mercy</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
                 <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
@@ -104,72 +113,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(updateGameStats, 3000);
             setInterval(updateGameStats, 60000);
-        });
-    </script>
-    <script>
-        async function updateGameStats() {
-            const cards = document.querySelectorAll('.game-card');
-            const placeIds = Array.from(cards).map(c => c.dataset.placeId).filter(Boolean);
-            if (!placeIds.length) return;
-
-            const universeMap = {};
-            await Promise.all(placeIds.map(async placeId => {
-                try {
-                    const res = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
-                    const data = await res.json();
-                    const uid = data.universeId ?? data.UniverseId ?? data.data?.universeId;
-                    universeMap[placeId] = uid;
-                } catch (e) {
-                    console.error('Error fetching universe ID for place', placeId, e);
-                }
-            }));
-
-            const universeIds = Object.values(universeMap).filter(Boolean);
-            if (!universeIds.length) return;
-
-            try {
-                const statsRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeIds.join(',')}`);
-                const statsJson = await statsRes.json();
-                const stats = statsJson.data || statsJson;
-
-                stats.forEach(game => {
-                    const placeId = Object.keys(universeMap).find(pid => universeMap[pid] === game.id);
-                    const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
-                    if (!card) return;
-                    const [visitsP, playingP] = card.querySelectorAll('p');
-                    const visitsStr = game.visits === 0 ? '--' : game.visits.toLocaleString();
-                    const playingStr = game.playing === 0 ? '--' : game.playing.toLocaleString();
-                    const visitsValue = visitsP.querySelector('.value');
-                    const playingValue = playingP.querySelector('.value');
-                    if (visitsValue) {
-                        visitsValue.textContent = visitsStr;
-                        const spinnerV = visitsP.querySelector('.spinner'); if (spinnerV) spinnerV.remove();
-                    } else {
-                        visitsP.textContent = `Total Visits: ${visitsStr}`;
-                    }
-                    if (playingValue) {
-                        playingValue.textContent = playingStr;
-                        const spinnerP = playingP.querySelector('.spinner'); if (spinnerP) spinnerP.remove();
-                    } else {
-                        playingP.textContent = `Currently Playing: ${playingStr}`;
-                    }
-                });
-            } catch (e) {
-                console.error('Error fetching game stats', e);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(updateGameStats, 3000);
-            setInterval(updateGameStats, 60000);
-
-            const burger = document.querySelector('.burger');
-            const mobile = document.querySelector('.mobile-menu');
-            burger.addEventListener('click', () => {
-                const expanded = burger.getAttribute('aria-expanded') === 'true';
-                burger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-                mobile.classList.toggle('open');
-            });
         });
     </script>
 </body>

@@ -16,101 +16,66 @@
     <div class="contributions">
         <h1>Game Contributions</h1>
 
-        <!-- Spinner before stats load -->
+        <!-- Spinner shown until sorted data loads -->
         <div class="grid-spinner" id="grid-spinner">
             <div class="spinner-large"></div>
         </div>
 
         <div class="grid-container" style="display: none;">
-            <div class="game-card" data-place-id="8457215898">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/eatsand_icon.webp" alt="Eat Sand 2 thumbnail" />
-                </div>
-                <h2>Eat Sand 2</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-
-            <div class="game-card" data-place-id="17470779408">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/gotham.png" alt="Gotham's Shadow thumbnail" />
-                </div>
-                <h2>Gotham's Shadow</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-
-            <div class="game-card" data-place-id="17306807164">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/streetlife_icon.webp" alt="Street Life thumbnail" />
-                </div>
-                <h2>Street Life</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-
-            <div class="game-card" data-place-id="71600459831333">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/nomercy_icon.webp" alt="No Mercy thumbnail" />
-                </div>
-                <h2>No Mercy</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-
-            <div class="game-card" data-place-id="118625690213489">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/obbygn_icon.webp" alt="Obby but youre a gun thumbnail" />
-                </div>
-                <h2>Obby But You're A Gun!</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-
-            <div class="game-card" data-place-id="13922368394">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/ReactorFacility_icon.webp" alt="Reactor Facility Tycoon thumbnail" />
-                </div>
-                <h2>Reactor Facility Tycoon</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-
-            <div class="game-card" data-place-id="107199013372291">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/JackAndJill_icon.webp" alt="Jack & Jill Tower thumbnail" />
-                </div>
-                <h2>Jack & Jill Tower</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-            <div class="game-card" data-place-id="115142309251146">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/growaranch_icon.webp" alt="Grow a ranch thumbnail" />
-                </div>
-                <h2>Grow A Ranch</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
-            <div class="game-card" data-place-id="17897363783">
-                <div class="thumbnail-wrapper">
-                    <img src="assets/buildtycoon.webp" alt="Build your own tycoon thumbnail" />
-                </div>
-                <h2>Build Your Own Tycoon!</h2>
-                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
-                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
-            </div>
+            <div class="game-card" data-place-id="8457215898" data-image="assets/eatsand_icon.webp"
+                data-name="Eat Sand 2"></div>
+            <div class="game-card" data-place-id="17470779408" data-image="assets/gotham.png"
+                data-name="Gotham's Shadow"></div>
+            <div class="game-card" data-place-id="17306807164" data-image="assets/streetlife_icon.webp"
+                data-name="Street Life"></div>
+            <div class="game-card" data-place-id="71600459831333" data-image="assets/nomercy_icon.webp"
+                data-name="No Mercy"></div>
+            <div class="game-card" data-place-id="118625690213489" data-image="assets/obbygn_icon.webp"
+                data-name="Obby But You're A Gun!"></div>
+            <div class="game-card" data-place-id="13922368394" data-image="assets/ReactorFacility_icon.webp"
+                data-name="Reactor Facility Tycoon"></div>
+            <div class="game-card" data-place-id="107199013372291" data-image="assets/JackAndJill_icon.webp"
+                data-name="Jack & Jill Tower"></div>
         </div>
     </div>
+
     <div class="footer">
         &copy; 2025 Dr8wings. All rights reserved.
     </div>
 
     <script>
+        function generateGameCardContent(card) {
+            const placeId = card.dataset.placeId;
+            const image = card.dataset.image;
+            const name = card.dataset.name;
+
+            card.innerHTML = `
+        <div class="thumbnail-wrapper">
+          <a href="https://www.roblox.com/games/${placeId}" target="_blank" rel="noopener noreferrer">
+            <img src="${image}" alt="${name} thumbnail" />
+          </a>
+        </div>
+        <h2>${name}</h2>
+        <div class="game-stats">
+          <div class="stat-row">
+            <span class="stat-label">Total Visits</span>
+            <span class="stat-value"><span class="value">--</span><span class="spinner"></span></span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Currently Playing</span>
+            <span class="stat-value"><span class="value">--</span><span class="spinner"></span></span>
+          </div>
+        </div>
+      `;
+        }
+
         async function updateGameStats() {
             const container = document.querySelector('.grid-container');
             const spinner = document.getElementById('grid-spinner');
             const cards = Array.from(container.querySelectorAll('.game-card'));
+
+            cards.forEach(generateGameCardContent);
+
             const placeIds = cards.map(c => c.dataset.placeId).filter(Boolean);
             if (!placeIds.length) return;
 
@@ -139,12 +104,12 @@
                     const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
                     if (!card) return;
 
-                    const [visitsP, playingP] = card.querySelectorAll('p');
+                    const [visitsP, playingP] = card.querySelectorAll('.stat-row');
                     const visitsNum = typeof game.visits === 'number' ? game.visits : 0;
                     const playingNum = typeof game.playing === 'number' ? game.playing : 0;
 
-                    const visitsStr = visitsNum === 0 ? '1' : visitsNum.toLocaleString();
-                    const playingStr = playingNum === 0 ? '1' : playingNum.toLocaleString();
+                    const visitsStr = visitsNum === 0 ? '--' : visitsNum.toLocaleString();
+                    const playingStr = playingNum === 0 ? '--' : playingNum.toLocaleString();
 
                     const visitsValue = visitsP.querySelector('.value');
                     const playingValue = playingP.querySelector('.value');
@@ -161,7 +126,6 @@
                     card.dataset.visits = visitsNum.toString();
                 });
 
-                // Sort by playing DESC, then visits DESC
                 const sortedCards = cards.sort((a, b) => {
                     const aPlay = parseInt(a.dataset.playing || '0', 10);
                     const bPlay = parseInt(b.dataset.playing || '0', 10);
@@ -172,11 +136,12 @@
                     return bVisit - aVisit;
                 });
 
-                // Re-render in sorted order
                 container.innerHTML = '';
-                sortedCards.forEach(card => container.appendChild(card));
+                sortedCards.forEach(card => {
+                    generateGameCardContent(card); // regenerate innerHTML after sort
+                    container.appendChild(card);
+                });
 
-                // Show grid, hide spinner
                 spinner.remove();
                 container.style.display = 'grid';
             } catch (e) {

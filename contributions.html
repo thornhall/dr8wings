@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contributions | Dr8wings</title>
     <style>
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            vertical-align: middle;
+            margin-left: 6px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         :root {
             --bg: #121212;
             --text: #f1f5f9;
@@ -114,30 +132,32 @@
     <div class="contributions">
         <h1>Game Contributions</h1>
         <div class="card-list">
-            <div class="game-card" data-place-id="71600459831333">
-                <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
-                <h2>No Mercy</h2>
-                <p>Total Visits: --</p>
-                <p>Currently Playing: --</p>
-            </div>
-            <div class="game-card" data-place-id="17306807164">
-                <img src="assets/streetlife.png" alt="Street Life thumbnail" />
-                <h2>Street Life</h2>
-                <p>Total Visits: --</p>
-                <p>Currently Playing: --</p>
-            </div>
             <div class="game-card" data-place-id="8457215898">
                 <img src="assets/eatsand.png" alt="Eat Sand 2 thumbnail" />
                 <h2>Eat Sand 2</h2>
-                <p>Total Visits: --</p>
-                <p>Currently Playing: --</p>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
 
             <div class="game-card" data-place-id="17470779408">
                 <img src="assets/gotham.png" alt="Gotham's Shadow thumbnail" />
                 <h2>Gotham's Shadow</h2>
-                <p>Total Visits: --</p>
-                <p>Currently Playing: --</p>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
+            </div>
+
+            <div class="game-card" data-place-id="17306807164">
+                <img src="assets/streetlife.png" alt="Street Life thumbnail" />
+                <h2>Street Life</h2>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
+            </div>
+
+            <div class="game-card" data-place-id="71600459831333">
+                <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
+                <h2>No Mercy</h2>
+                <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
+                <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
         </div>
     </div>
@@ -179,8 +199,20 @@
                     const [visitsP, playingP] = card.querySelectorAll('p');
                     const visitsStr = game.visits === 0 ? '--' : game.visits.toLocaleString();
                     const playingStr = game.playing === 0 ? '--' : game.playing.toLocaleString();
-                    visitsP.textContent = `Total Visits: ${visitsStr}`;
-                    playingP.textContent = `Currently Playing: ${playingStr}`;
+                    const visitsValue = visitsP.querySelector('.value');
+                    const playingValue = playingP.querySelector('.value');
+                    if (visitsValue) {
+                        visitsValue.textContent = visitsStr;
+                        const spinnerV = visitsP.querySelector('.spinner'); if (spinnerV) spinnerV.remove();
+                    } else {
+                        visitsP.textContent = `Total Visits: ${visitsStr}`;
+                    }
+                    if (playingValue) {
+                        playingValue.textContent = playingStr;
+                        const spinnerP = playingP.querySelector('.spinner'); if (spinnerP) spinnerP.remove();
+                    } else {
+                        playingP.textContent = `Currently Playing: ${playingStr}`;
+                    }
                 });
             } catch (e) {
                 console.error('Error fetching game stats', e);

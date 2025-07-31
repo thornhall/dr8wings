@@ -28,6 +28,24 @@
             padding: 4rem 2rem;
         }
 
+        nav {
+            max-width: 960px;
+            margin: 0 auto 2rem;
+            padding: 0 1rem;
+            text-align: left;
+        }
+
+        nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
         .contributions {
             max-width: 960px;
             margin: 0 auto;
@@ -60,6 +78,11 @@
             max-width: 500px;
             border-radius: 1rem;
             margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover img {
+            transform: scale(1.05);
         }
 
         .game-card h2 {
@@ -85,35 +108,38 @@
 </head>
 
 <body>
+    <nav>
+        <a href="index.html">&larr; Home</a>
+    </nav>
     <div class="contributions">
         <h1>Game Contributions</h1>
         <div class="card-list">
             <div class="game-card" data-place-id="8457215898">
                 <img src="assets/eatsand.png" alt="Eat Sand 2 thumbnail" />
                 <h2>Eat Sand 2</h2>
-                <p>Total Visits: Loading...</p>
-                <p>Currently Playing: Loading...</p>
+                <p>Total Visits: --</p>
+                <p>Currently Playing: --</p>
             </div>
 
             <div class="game-card" data-place-id="17470779408">
                 <img src="assets/gotham.png" alt="Gotham's Shadow thumbnail" />
                 <h2>Gotham's Shadow</h2>
-                <p>Total Visits: Loading...</p>
-                <p>Currently Playing: Loading...</p>
+                <p>Total Visits: --</p>
+                <p>Currently Playing: --</p>
             </div>
 
             <div class="game-card" data-place-id="17306807164">
                 <img src="assets/streetlife.png" alt="Street Life thumbnail" />
                 <h2>Street Life</h2>
-                <p>Total Visits: Loading...</p>
-                <p>Currently Playing: Loading...</p>
+                <p>Total Visits: --</p>
+                <p>Currently Playing: --</p>
             </div>
 
             <div class="game-card" data-place-id="71600459831333">
                 <img src="assets/nomercy.png" alt="No Mercy thumbnail" />
                 <h2>No Mercy</h2>
-                <p>Total Visits: Loading...</p>
-                <p>Currently Playing: Loading...</p>
+                <p>Total Visits: --</p>
+                <p>Currently Playing: --</p>
             </div>
         </div>
     </div>
@@ -124,7 +150,7 @@
 
     <script>
         async function updateGameStats() {
-            const cards = document.querySelectorAll('.game-card');
+            const cards = document.querySelectorAll('.')game-card');
             const placeIds = Array.from(cards).map(c => c.dataset.placeId).filter(Boolean);
             if (!placeIds.length) return;
 
@@ -133,7 +159,6 @@
                 try {
                     const res = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
                     const data = await res.json();
-                    // data may be { universeId: 123 } or { data: { universeId: 123 } }
                     const uid = data.universeId ?? data.UniverseId ?? data.data?.universeId;
                     universeMap[placeId] = uid;
                 } catch (e) {
@@ -150,13 +175,14 @@
                 const stats = statsJson.data || statsJson;
 
                 stats.forEach(game => {
-                    // game.id is the universe ID
                     const placeId = Object.keys(universeMap).find(pid => universeMap[pid] === game.id);
                     const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
                     if (!card) return;
                     const [visitsP, playingP] = card.querySelectorAll('p');
-                    visitsP.textContent = `Total Visits: ${game.visits.toLocaleString()}`;
-                    playingP.textContent = `Currently Playing: ${game.playing.toLocaleString()}`;
+                    const visitsStr = game.visits === 0 ? '--' : game.visits.toLocaleString();
+                    const playingStr = game.playing === 0 ? '--' : game.playing.toLocaleString();
+                    visitsP.textContent = `Total Visits: ${visitsStr}`;
+                    playingP.textContent = `Currently Playing: ${playingStr}`;
                 });
             } catch (e) {
                 console.error('Error fetching game stats', e);
@@ -164,7 +190,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(updateGameStats, 5000);
+            setTimeout(updateGameStats, 3000);
             setInterval(updateGameStats, 60000);
         });
     </script>

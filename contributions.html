@@ -128,45 +128,40 @@
             const placeIds = Array.from(cards).map(c => c.dataset.placeId).filter(Boolean);
             if (!placeIds.length) return;
 
-            console.log('Fetching universe IDs for places', placeIds);
-            const universeMap = {};
-            for (const placeId of placeIds) {
-                try {
-                    const resp = await fetch(`https://apis.roblox.com/universes/v1/places/${placeId}/universe`);
-                    const json = await resp.json();
-                    console.log(`Place ${placeId} universe`, json);
-                    universeMap[placeId] = json.data ? json.data.universeId : json.universeId || json.UniverseId;
-                } catch (e) {
-                    console.error('Error fetching universe for place', placeId, e);
-                }
-            }
-            const universeIds = Object.values(universeMap);
-            console.log('Universe IDs', universeIds);
-
             try {
-                const response = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeIds.join(',')}`);
-                const gameData = await response.json();
-                console.log('Game data', gameData);
-                for (const game of gameData.data) {
-                    const placeId = Object.keys(universeMap).find(key => universeMap[key] === game.universeId);
+                // Fetch place details to get universe IDs via roproxy (CORS-enabled)
+                const placeRes = await fetch(`https://games.roproxy.com/v1/games/multiget-place-details?placeIds=${placeIds.join(',')}`);
+                const placeJson = await placeRes.json();
+                const details = placeJson.data || placeJson;
+                const universeMap = {};
+                details.forEach(detail => {
+                    universeMap[detail.placeId] = detail.universeId;
+                });
+
+                const universeIds = Object.values(universeMap);
+                if (!universeIds.length) return;
+
+                // Fetch game stats
+                const statsRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeIds.join(',')}`);
+                const statsJson = await statsRes.json();
+                const stats = statsJson.data || statsJson;
+
+                stats.forEach(game => {
+                    const placeId = Object.keys(universeMap).find(pid => universeMap[pid] === game.id);
                     const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
-                    if (!card) continue;
-                    const pTags = card.querySelectorAll('p');
-                    if (pTags.length >= 2) {
-                        pTags[0].textContent = `Total Visits: ${game.visits.toLocaleString()}`;
-                        pTags[1].textContent = `Currently Playing: ${game.playing.toLocaleString()}`;
-                    }
-                }
-            } catch (e) {
-                console.error('Error fetching game stats', e);
+                    if (!card) return;
+                    const [visitsP, playingP] = card.querySelectorAll('p');
+                    visitsP.textContent = `Total Visits: ${game.visits.toLocaleString()}`;
+                    playingP.textContent = `Currently Playing: ${game.playing.toLocaleString()}`;
+                });
+            } catch (err) {
+                console.error('Error updating game stats:', err);
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                updateGameStats();
-                setInterval(updateGameStats, 60000); // every 60 seconds
-            }, 5000); // wait 5 seconds before first fetch
+            setTimeout(updateGameStats, 5000);
+            setInterval(updateGameStats, 60000);
         });
     </script>
 </body>

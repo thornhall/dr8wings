@@ -154,7 +154,7 @@ nav {
     text-align: center;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .hero-img {
         object-fit: contain;
         height: auto;
@@ -164,7 +164,7 @@ nav {
     .hero-container {
         min-height: auto;
     }
-}
+} */
 
 .container {
     max-width: 900px;

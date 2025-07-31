@@ -10,34 +10,7 @@
 
 <body>
     <div id="shared-nav"></div>
-    <script>
-        async function injectNav() {
-            const resp = await fetch('nav.html');
-            if (!resp.ok) return;
-            const html = await resp.text();
-            document.getElementById('shared-nav').innerHTML = html;
-
-            const burger = document.querySelector('.burger');
-            const mobile = document.querySelector('.mobile-menu');
-            if (burger && mobile) {
-                burger.addEventListener('click', () => {
-                    const expanded = burger.getAttribute('aria-expanded') === 'true';
-                    burger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-                    mobile.classList.toggle('open');
-                });
-
-                // Collapse mobile menu when any link is clicked
-                const links = mobile.querySelectorAll('a');
-                links.forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobile.classList.remove('open');
-                        burger.setAttribute('aria-expanded', 'false');
-                    });
-                });
-            }
-        }
-        injectNav()
-    </script>
+    <script src="injectNav.js" defer></script>
     <div class="container">
         <h1>Roblox Game Manager</h1>
         <p class="description">

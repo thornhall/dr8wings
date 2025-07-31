@@ -17,7 +17,6 @@
             const html = await resp.text();
             document.getElementById('shared-nav').innerHTML = html;
 
-            // Re-run burger toggle wiring since nav was injected
             const burger = document.querySelector('.burger');
             const mobile = document.querySelector('.mobile-menu');
             if (burger && mobile) {
@@ -26,9 +25,18 @@
                     burger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
                     mobile.classList.toggle('open');
                 });
+
+                // Collapse mobile menu when any link is clicked
+                const links = mobile.querySelectorAll('a');
+                links.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobile.classList.remove('open');
+                        burger.setAttribute('aria-expanded', 'false');
+                    });
+                });
             }
         }
-        injectNav();
+        injectNav()
     </script>
     <div class="container">
         <h1>Roblox Game Manager</h1>

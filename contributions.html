@@ -134,7 +134,7 @@
                 .then(response => response.json())
                 .then(data => {
                     data.data.forEach(game => {
-                        const card = document.querySelector(`.game-card[data-universe-id="${game.id}"]`);
+                        const card = document.querySelector(`.game-card[data-universe-id="${game.universeId}"]`);
                         if (!card) return;
 
                         const pTags = card.querySelectorAll('p');

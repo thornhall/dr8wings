@@ -410,3 +410,24 @@ h1 {
     margin-bottom: 0.5rem;
     letter-spacing: 0.05em;
 }
+
+.hero-bg {
+    background-image: url('assets/ThumbnailNoLines.png');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    width: 100%;
+    margin-top: -1px;
+    z-index: 0;
+}
+
+.hero-bg::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+}

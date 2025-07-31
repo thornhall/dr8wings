@@ -150,7 +150,7 @@
 
     <script>
         async function updateGameStats() {
-            const cards = document.querySelectorAll('.')game-card');
+            const cards = document.querySelectorAll('.game-card');
             const placeIds = Array.from(cards).map(c => c.dataset.placeId).filter(Boolean);
             if (!placeIds.length) return;
 

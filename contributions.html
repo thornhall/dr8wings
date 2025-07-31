@@ -15,7 +15,13 @@
 
     <div class="contributions">
         <h1>Game Contributions</h1>
-        <div class="grid-container">
+
+        <!-- Spinner before stats load -->
+        <div class="grid-spinner" id="grid-spinner">
+            <div class="spinner-large"></div>
+        </div>
+
+        <div class="grid-container" style="display: none;">
             <div class="game-card" data-place-id="8457215898">
                 <div class="thumbnail-wrapper">
                     <img src="assets/eatsand_icon.webp" alt="Eat Sand 2 thumbnail" />
@@ -60,17 +66,19 @@
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
                 <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
+
             <div class="game-card" data-place-id="13922368394">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/ReactorFacility_icon.webp" alt="No Mercy thumbnail" />
+                    <img src="assets/ReactorFacility_icon.webp" alt="Reactor Facility Tycoon thumbnail" />
                 </div>
                 <h2>Reactor Facility Tycoon</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
                 <p>Currently Playing: <span class="value">--</span><span class="spinner"></span></p>
             </div>
+
             <div class="game-card" data-place-id="107199013372291">
                 <div class="thumbnail-wrapper">
-                    <img src="assets/JackAndJill_icon.webp" alt="No Mercy thumbnail" />
+                    <img src="assets/JackAndJill_icon.webp" alt="Jack & Jill Tower thumbnail" />
                 </div>
                 <h2>Jack & Jill Tower</h2>
                 <p>Total Visits: <span class="value">--</span><span class="spinner"></span></p>
@@ -86,6 +94,7 @@
     <script>
         async function updateGameStats() {
             const container = document.querySelector('.grid-container');
+            const spinner = document.getElementById('grid-spinner');
             const cards = Array.from(container.querySelectorAll('.game-card'));
             const placeIds = cards.map(c => c.dataset.placeId).filter(Boolean);
             if (!placeIds.length) return;
@@ -110,17 +119,18 @@
                 const statsJson = await statsRes.json();
                 const stats = statsJson.data || statsJson;
 
-                const playingMap = {}; // Map universeId to currentlyPlaying
                 stats.forEach(game => {
                     const placeId = Object.keys(universeMap).find(pid => universeMap[pid] === game.id);
                     const card = document.querySelector(`.game-card[data-place-id="${placeId}"]`);
                     if (!card) return;
 
                     const [visitsP, playingP] = card.querySelectorAll('p');
-                    const visitsStr = game.visits === 0 ? '--' : game.visits.toLocaleString();
-                    const playingStr = game.playing === 0 ? '--' : game.playing.toLocaleString();
+                    const visitsNum = typeof game.visits === 'number' ? game.visits : 0;
+                    const playingNum = typeof game.playing === 'number' ? game.playing : 0;
 
-                    // Set values and cleanup spinners
+                    const visitsStr = visitsNum === 0 ? '--' : visitsNum.toLocaleString();
+                    const playingStr = playingNum === 0 ? '--' : playingNum.toLocaleString();
+
                     const visitsValue = visitsP.querySelector('.value');
                     const playingValue = playingP.querySelector('.value');
                     if (visitsValue) {
@@ -132,29 +142,35 @@
                         const spinnerP = playingP.querySelector('.spinner'); if (spinnerP) spinnerP.remove();
                     }
 
-                    // Save currently playing for sort later
-                    const playingCount = typeof game.playing === 'number' ? game.playing : 0;
-                    card.dataset.playing = playingCount.toString();
-                    playingMap[placeId] = playingCount;
+                    card.dataset.playing = playingNum.toString();
+                    card.dataset.visits = visitsNum.toString();
                 });
 
-                // Sort cards by currently playing (descending)
+                // Sort by playing DESC, then visits DESC
                 const sortedCards = cards.sort((a, b) => {
                     const aPlay = parseInt(a.dataset.playing || '0', 10);
                     const bPlay = parseInt(b.dataset.playing || '0', 10);
-                    return bPlay - aPlay;
+                    if (bPlay !== aPlay) return bPlay - aPlay;
+
+                    const aVisit = parseInt(a.dataset.visits || '0', 10);
+                    const bVisit = parseInt(b.dataset.visits || '0', 10);
+                    return bVisit - aVisit;
                 });
 
-                // Re-append cards to container in new order
+                // Re-render in sorted order
                 container.innerHTML = '';
                 sortedCards.forEach(card => container.appendChild(card));
+
+                // Show grid, hide spinner
+                spinner.remove();
+                container.style.display = 'grid';
             } catch (e) {
                 console.error('Error fetching game stats', e);
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(updateGameStats);
+            setTimeout(updateGameStats, 0);
             setInterval(updateGameStats, 60000);
         });
     </script>

@@ -587,3 +587,9 @@ h1 {
 .name {
     color: #ffffff;
 }
+
+.centered {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}

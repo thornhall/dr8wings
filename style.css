@@ -576,8 +576,8 @@ h1 {
 }
 
 .profile-pic {
-    width: 10px;
-    height: 10px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;

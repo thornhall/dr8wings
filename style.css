@@ -164,7 +164,7 @@ h1 {
     transition: background-color 0.2s ease;
 }
 
-.whitebutton {
+.button-column a.whitebutton {
     background-color: white;
 }
 

@@ -535,3 +535,26 @@ h1 {
         object-position: top center;
     }
 }
+
+.testimonial {
+    margin-bottom: 2rem;
+}
+
+.credit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.profile-pic {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}

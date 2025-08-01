@@ -497,12 +497,6 @@ h1 {
 }
 
 @media (max-width: 768px) {
-    .content-inner {
-        padding: 0;
-    }
-}
-
-@media (max-width: 768px) {
     .hero-container {
         height: 80vh;
     }
@@ -513,5 +507,13 @@ h1 {
 
     .description {
         font-size: 0.5rem;
+    }
+
+    .content-inner {
+        padding: 0rem;
+    }
+
+    .hero-img {
+        object-position: top center;
     }
 }

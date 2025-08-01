@@ -474,7 +474,6 @@ h1 {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.25);
-    /* slightly stronger for readability */
     z-index: 1;
 }
 
@@ -493,7 +492,6 @@ h1 {
     gap: 1rem;
 }
 
-/* Mobile adjustments for readability */
 @media (max-width: 768px) {
     .content-inner {
         padding: 2rem 1rem;

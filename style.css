@@ -663,6 +663,7 @@ h1 {
 
 .heading-reviews {
     color: darkgoldenrod;
+    display: inherit;
 }
 
 .heading-contributions {

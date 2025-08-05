@@ -53,6 +53,19 @@ nav {
     justify-content: space-between;
 }
 
+.nav-logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.nav-logo {
+    width: 60px;
+    height: 1em;
+    object-fit: contain;
+}
+
 .logo a {
     color: var(--text);
     font-weight: 700;

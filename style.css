@@ -1120,6 +1120,10 @@ h1 {
         grid-template-columns: 1fr;
     }
 
+    .service-card {
+        min-height: 510px;
+    }
+
     .button-column {
         margin-top: 3rem;
         margin-bottom: 1rem;

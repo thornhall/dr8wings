@@ -50,7 +50,7 @@ nav {
 .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .nav-logo-link {
@@ -952,11 +952,19 @@ h1 {
     display: block;
 }
 
+
+.heading-wrapper {
+    text-align: center;
+}
+
 .logo-heading {
     display: inline-flex;
+    justify-content: flex-start;
     align-items: center;
-    gap: 0.5em;
+    flex-wrap: nowrap;
+    gap: var(--logo-text-gap, 0.5em);
     font-size: 2rem;
+    line-height: 1;
 }
 
 .nav-logo-link {

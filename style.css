@@ -986,19 +986,29 @@ h1 {
 }
 
 .site-title {
-    display: inline-grid;
-    grid-template-columns: 60px auto;
-    gap: 0.3em;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    padding-left: calc(60px + 0.3em);
     font-size: 2rem;
-    line-height: 1.2;
+    line-height: 1;
     margin: 0.5em 0;
+    white-space: normal;
+}
+
+@media (max-width: 768px) {
+    .site-title {
+        display: inline-block;
+    }
 }
 
 .site-title .site-logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 60px;
-    height: 1em;
+    height: 2em;
     object-fit: contain;
 }
 

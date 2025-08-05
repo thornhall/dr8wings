@@ -982,9 +982,11 @@ h1 {
 }
 
 .site-title {
+    display: block;
     text-align: center;
     font-size: 2rem;
     line-height: 1;
+    margin: 0.5em 0;
 }
 
 .site-title .site-logo {

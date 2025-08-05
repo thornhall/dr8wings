@@ -995,6 +995,13 @@ h1 {
     padding-right: 1rem;
 }
 
+.heading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
 .site-title {
     font-size: 2rem;
     line-height: 1.2;

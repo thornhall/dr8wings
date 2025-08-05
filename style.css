@@ -582,7 +582,7 @@ h1 {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 4fr));
+    grid-template-columns: 4fr;
     gap: 2rem;
     justify-content: center;
     align-items: center;
@@ -600,8 +600,8 @@ h1 {
     text-align: center;
     width: 100%;
     max-width: 300px;
-    max-height: 350px;
-    min-height: 400px;
+    max-height: 500px;
+    min-height: 500px;
 }
 
 .service-card:hover {

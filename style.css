@@ -603,7 +603,7 @@ h1 {
 
 .service-card {
     background: #1d1f1f;
-    border-top: 4px solid green;
+    border-top: 4px solid var(--accent);
     border-radius: 10px;
     padding: 2rem;
     box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.2);
@@ -655,7 +655,7 @@ h1 {
 }
 
 .heading-services {
-    color: green;
+    color: var(--accent);
 }
 
 .heading-reviews {

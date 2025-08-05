@@ -1009,6 +1009,7 @@ h1 {
     margin: 0.5em 0;
     white-space: normal;
     flex-basis: min-content;
+    min-width: 240px;
 }
 
 .site-logo {

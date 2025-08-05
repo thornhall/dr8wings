@@ -1026,6 +1026,15 @@ h1 {
 }
 
 @media (min-width: 769px) {
+    .testimonials-container {
+        display: grid;
+        grid-template-columns: repeat(2, 2fr);
+        gap: 1.5rem;
+        margin: 0 1rem;
+        padding: 0.5rem;
+        min-width: 500px;
+    }
+
     .hero-container {
         height: 70vh;
     }
@@ -1048,6 +1057,16 @@ h1 {
 }
 
 @media (max-width: 768px) {
+
+    .testimonials-container {
+        display: grid;
+        grid-template-columns: repeat(2, 2fr);
+        gap: 1.5rem;
+        margin: 0 1rem;
+        padding: 0.5rem;
+        min-width: 300px;
+    }
+
     .system-cards {
         grid-template-columns: 1fr;
         padding: 20px,

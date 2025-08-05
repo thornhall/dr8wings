@@ -985,6 +985,10 @@ h1 {
     text-align: center;
 }
 
+.heading-wrapper {
+    text-align: center;
+}
+
 .site-title {
     display: inline-block;
     position: relative;
@@ -993,16 +997,13 @@ h1 {
     font-size: 2rem;
     line-height: 1;
     margin: 0.5em 0;
+    white-space: normal;
 }
 
-.site-title .site-logo {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 60px;
-    height: 2em;
-    object-fit: contain;
+@media (max-width: 768px) {
+    .site-title {
+        display: inline-block;
+    }
 }
 
 @media (max-width: 1100px) {

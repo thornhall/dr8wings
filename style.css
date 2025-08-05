@@ -1001,6 +1001,7 @@ h1 {
     justify-content: center;
     align-items: center;
     justify-items: center;
+    margin-bottom: 1em;
 }
 
 .site-title {

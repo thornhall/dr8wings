@@ -976,7 +976,6 @@ h1 {
 .nav-logo {
     width: 60px;
     height: 2em;
-    border-radius: 50%;
     object-fit: contain;
 }
 

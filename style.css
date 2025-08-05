@@ -582,7 +582,7 @@ h1 {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 4fr));
     gap: 2rem;
     justify-content: center;
     align-items: center;
@@ -591,7 +591,7 @@ h1 {
 
 .service-card {
     background: #1d1f1f;
-    border-top: 4px solid var(--accent);
+    border-top: 4px solid green;
     border-radius: 10px;
     padding: 2rem;
     box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.2);
@@ -601,7 +601,7 @@ h1 {
     width: 100%;
     max-width: 300px;
     max-height: 350px;
-    min-height: 350px;
+    min-height: 400px;
 }
 
 .service-card:hover {

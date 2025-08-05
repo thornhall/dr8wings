@@ -907,22 +907,20 @@ h1 {
 }
 
 .discord-tooltip .tooltip-text {
-    visibility: hidden;
-    opacity: 0;
-    width: max-content;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    text-align: center;
-    border-radius: 4px;
-    padding: 4px 6px;
-    font-size: 0.75rem;
-    font-family: 'Poppins', sans-serif;
+    display: none;
     position: absolute;
     bottom: 125%;
     left: 50%;
     transform: translateX(-50%);
-    transition: opacity 0.2s;
+    white-space: nowrap;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 4px;
+    padding: 4px 6px;
     pointer-events: none;
+    z-index: 10;
 }
 
 .discord-tooltip .tooltip-text::after {
@@ -936,10 +934,9 @@ h1 {
     border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
 }
 
-/* reveal on hover */
-.discord-tooltip:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
+.discord-tooltip:hover .tooltip-text,
+.discord-tooltip:focus .tooltip-text {
+    display: block;
 }
 
 @media (min-width: 769px) {

@@ -973,8 +973,7 @@ h1 {
     font-size: 1.1rem;
 }
 
-.h1-logo,
-.nav-logo {
+.h1-logo {
     width: 60px;
     height: 2em;
     object-fit: contain;

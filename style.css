@@ -388,8 +388,8 @@ h1 {
     padding: 0 2rem;
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
     max-width: 100%;
     width: 100%;
     justify-items: center;
@@ -397,7 +397,7 @@ h1 {
 
 .testimonial-card {
     background: #2a2a2a;
-    padding: 1rem;
+    padding: 1.5rem 2rem;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -406,12 +406,14 @@ h1 {
     height: 100%;
     max-width: 700px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .testimonial .quote {
     font-style: italic;
-    font-size: 1rem;
+    font-size: 1.25rem;
     margin-bottom: 1rem;
+    color: var(--text);
 }
 
 .testimonial .rating {
@@ -447,6 +449,12 @@ h1 {
     align-items: center;
     text-align: center;
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .testimonials-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .testimonials-container h1 {
